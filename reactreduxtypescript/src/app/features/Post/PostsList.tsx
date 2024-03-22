@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 // import { initialStateValue } from "./postSlice";
 import { selectAllPosts } from "./postSlice";
+// import { func } from "../../Types/Types";
 export const PostsList = () => {
-
+    // func();
     const posts = useSelector(selectAllPosts)
     const renderedPosts = posts.map((post: any) => {
         return (

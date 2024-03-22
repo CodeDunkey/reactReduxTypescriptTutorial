@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { increment, decrement, reset, incrementByAmount, decrementByAmount } from "./counterSlice"
 import { useState, ChangeEvent } from "react";
-
+declare const abc = 1
 export const Counter = () => {
 
     const count = useSelector((state: any) => state.counter.count);
@@ -14,10 +14,19 @@ export const Counter = () => {
         setIncrementAmount(0)
         dispatch(reset());
     }
-
+    
     const setInput = (x: ChangeEvent<HTMLInputElement>) => {
         
+        // let lengthOfInput = x.target.value.length;
+        // console.log('lengthOfInput', lengthOfInput);
+        // console.log('x.target.value', x.target.value);
+        // if (typeof(x.target.value) === Number){
+
+        // }
+        // let convertToNumber;
+
         let convertToNumber = Number(x.target.value)
+        
         if (isNaN(convertToNumber)) {
             alert("must be a number")
             convertToNumber = 0

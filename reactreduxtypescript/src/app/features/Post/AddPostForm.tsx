@@ -2,15 +2,25 @@ import { useState, ChangeEvent } from "react"
 import { useDispatch } from "react-redux"
 import { nanoid } from "@reduxjs/toolkit"
 import { postAdded } from "./postSlice"
+
 export const AddPostForm = () => {
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
-
+    const dispatch = useDispatch();
     const onTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
     }
     const onContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setTitle(e.target.value)
+        setContent(e.target.value)
+    }
+    const onSavePostClicked = () =>{
+        if (title && content) {
+            dispatch(
+                postAdded(title, content)
+            )
+            setTitle("")
+            setContent("")
+        }
     }
     return (
         <section>
@@ -19,7 +29,7 @@ export const AddPostForm = () => {
             <input type="text" id="postTitle" name="postTitle" value={title} onChange={onTitleChange}></input>
             <label htmlFor="postContent">Content</label>
             <textarea id="postContent" name="postContent" value={content} onChange={onContentChange}></textarea>
-            <button type="button">Save Post</button>
+            <button type="button" onClick={onSavePostClicked}>Save Post</button>
         </section>
     )
 }
