@@ -3,8 +3,10 @@ export type initialStateTemp = {
     count: number,
 }
 const initialState: initialStateTemp = {
-    count: 0,
+    count: 10,
 }
+
+// Redux API: createSlice
 export const counterSlice = createSlice({
     name: "counter",
     initialState,

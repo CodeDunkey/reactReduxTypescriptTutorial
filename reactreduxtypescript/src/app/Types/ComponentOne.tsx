@@ -1,5 +1,6 @@
 import './scssExample.scss'
 
+// only to show css "em" effect
 export const ComponentOne = () => {
 return(
 <div className='parentOne'>

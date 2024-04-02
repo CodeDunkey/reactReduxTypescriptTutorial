@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux"
 import { increment, decrement, reset, incrementByAmount, decrementByAmount } from "./counterSlice"
 import { useState, ChangeEvent } from "react";
-declare const abc = 1
+import { useAppDispatch, useAppSelector } from "../../Hooks/hook";
+
 export const Counter = () => {
 
-    const count = useSelector((state: any) => state.counter.count);
-    const dispatch = useDispatch();
+    // const count = useSelector((state: any) => state.counter.count);
+    // const dispatch = useDispatch();
+    const count = useAppSelector((state) => state.counter.count)
+    const dispatch = useAppDispatch();
 
     const [incrementAmount, setIncrementAmount] = useState<number>(0);
 
@@ -33,7 +36,7 @@ export const Counter = () => {
         }
         setIncrementAmount(convertToNumber)
     }
-
+    console.log(useAppSelector((state) => state.counter.count));
     return (
         <section>
             <p>{count}</p>
