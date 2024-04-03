@@ -11,5 +11,8 @@ export const store = configureStore({
     }
 })
 
+
+// from redux tutorial with hooks *
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
+// *

@@ -1,3 +1,4 @@
+// from redux tutorial with hooks *
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"; 
 import { RootState, AppDispatch } from "../store/Store";
 

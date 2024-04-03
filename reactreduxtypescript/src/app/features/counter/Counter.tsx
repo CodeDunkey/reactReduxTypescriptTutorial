@@ -3,40 +3,55 @@ import { increment, decrement, reset, incrementByAmount, decrementByAmount } fro
 import { useState, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../Hooks/hook";
 
-export const Counter = () => {
+// interface InputType {
+//     input?: [string?, number?],
+//     para: ChangeEvent<HTMLInputElement>,
+// }
 
-    // const count = useSelector((state: any) => state.counter.count);
+export const Counter = () => {
+    const [incrementAmount, setIncrementAmount] = useState<number | string>("");
+
+    // from youtube tutorial without typescript *
+    // const count2 = useSelector((state) => state.counter.count);
     // const dispatch = useDispatch();
+    // *
+
+    // from redux tutorial with hooks *
     const count = useAppSelector((state) => state.counter.count)
     const dispatch = useAppDispatch();
+    // *
 
-    const [incrementAmount, setIncrementAmount] = useState<number>(0);
 
     const addValue = Number(incrementAmount) || 0;
     const resetAll = () => {
-        setIncrementAmount(0)
+        setIncrementAmount("")
         dispatch(reset());
     }
-    
-    const setInput = (x: ChangeEvent<HTMLInputElement>) => {
-        
-        // let lengthOfInput = x.target.value.length;
-        // console.log('lengthOfInput', lengthOfInput);
-        // console.log('x.target.value', x.target.value);
-        // if (typeof(x.target.value) === Number){
 
-        // }
-        // let convertToNumber;
+    // window.prompt("abc")
 
-        let convertToNumber = Number(x.target.value)
-        
-        if (isNaN(convertToNumber)) {
-            alert("must be a number")
-            convertToNumber = 0
+    const setInput = (parameter: ChangeEvent<HTMLInputElement>) => {
+
+        const inputIndexZero = parameter.target.value[0]
+
+        if (inputIndexZero !== "-" && inputIndexZero !== undefined) {
+
+            let convertToNumber = Number(inputIndexZero)
+            
+            if (isNaN(convertToNumber)) {
+                alert("must be a number or -")
+            }
         }
-        setIncrementAmount(convertToNumber)
+
+        if (isNaN(Number(parameter.target.value.slice(1)))) {
+            alert("must be a number")
+        }
+
+        setIncrementAmount(parameter.target.value)
     }
-    console.log(useAppSelector((state) => state.counter.count));
+
+    // console.log(useAppSelector((state) => state.counter.count));
+
     return (
         <section>
             <p>{count}</p>
