@@ -1,14 +1,16 @@
 import { PayloadAction, createSlice, nanoid } from "@reduxjs/toolkit";
 
-export type ReactionsValue = {
+export interface ReactionsValue {
+    // [key: string]: number 
+    
     thumbsUp: number,
-        wow: number,
-        heart: number,
-        rocket: number,
-        coffee: number,
+    wow: number,
+    heart: number,
+    rocket: number,
+    coffee: number,
 }
 
-export type initialStatePostValue = {
+export interface InitialStatePostValue  {
     id: string,
     title: string,
     content: string,
@@ -16,7 +18,7 @@ export type initialStatePostValue = {
     date: string,
     reactions: ReactionsValue,
 }
-const initialState: initialStatePostValue[] = [
+const initialState: InitialStatePostValue[] = [
     {
         id: "1", title: "first title", content: "first content", date: "4/5/2023, 1:47:03 PM", reactions: {
             thumbsUp: 0,
@@ -42,7 +44,7 @@ const postsSlice = createSlice({
     initialState,
     reducers: {
         postAdded: {
-            reducer(state, action: PayloadAction<initialStatePostValue>) {
+            reducer(state, action: PayloadAction<InitialStatePostValue>) {
                 state.push(action.payload)
             },
             prepare(title, content, userId) {
@@ -64,16 +66,19 @@ const postsSlice = createSlice({
                 }
             },
         },
-        reactionAdded(state, action) {
-            const { postId, reaction } = action.payload;
-            const existingPost: any = state.find(post => post.id === postId)
-            if(existingPost) {
-                existingPost.reactions[reaction]++
+        reactionAdded(state, action: PayloadAction<{postId: string, reactionKey: keyof ReactionsValue}> ) {
+            const { postId, reactionKey }  = action.payload
+            const existingPost = state.find(post => post.id === postId)
+            if (existingPost) {
+                const t = existingPost.reactions[reactionKey]++;
+               //  existingPost.reactions[reaction]++
             }
         },
     }
 })
 
+// : { postId: string, reaction: any }
+// : PayloadAction<InitialStatePostValue>
 // export const selectAllPosts = (state: any) => state.posts;
 
 export const { postAdded, reactionAdded } = postsSlice.actions;
